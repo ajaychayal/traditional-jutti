@@ -49,7 +49,7 @@ export default function Header() {
 
         {/* Logo */}
         <Link to="/" className={styles.logo}>
-          <img src="/images/header-logo.png" alt="JuttiStyle Logo" className={styles.logoImage} />
+          <img src={`${import.meta.env.BASE_URL}images/header-logo.png`} alt="JuttiStyle Logo" className={styles.logoImage} />
         </Link>
 
         {/* Desktop Navigation */}

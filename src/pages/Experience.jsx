@@ -31,7 +31,7 @@ export default function Experience() {
             </p>
           </div>
           <div className={styles.imageContent}>
-            <img src="/images/prod-4.png" alt="Premium Leather" className={styles.image} loading="lazy" />
+            <img src={`${import.meta.env.BASE_URL}images/prod-4.png`} alt="Premium Leather" className={styles.image} loading="lazy" />
           </div>
         </div>
       </section>
@@ -50,7 +50,7 @@ export default function Experience() {
             </p>
           </div>
           <div className={styles.imageContent}>
-            <img src="/images/prod-5.png" alt="Hand Embroidery" className={styles.image} loading="lazy" />
+            <img src={`${import.meta.env.BASE_URL}images/prod-5.png`} alt="Hand Embroidery" className={styles.image} loading="lazy" />
           </div>
         </div>
       </section>
@@ -68,7 +68,7 @@ export default function Experience() {
             </p>
           </div>
           <div className={styles.imageContent}>
-            <img src="/images/prod-6.png" alt="Shoe Assembly" className={styles.image} loading="lazy" />
+            <img src={`${import.meta.env.BASE_URL}images/prod-6.png`} alt="Shoe Assembly" className={styles.image} loading="lazy" />
           </div>
         </div>
       </section>

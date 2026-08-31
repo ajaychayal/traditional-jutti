@@ -32,7 +32,7 @@ export default function About() {
             </p>
           </div>
           <div className={styles.storyImage}>
-            <img src="/images/prod-11.png" alt="Artisan making Jutti" className={styles.placeholderImg} loading="lazy" />
+            <img src={`${import.meta.env.BASE_URL}images/prod-11.png`} alt="Artisan making Jutti" className={styles.placeholderImg} loading="lazy" />
           </div>
         </div>
       </section>

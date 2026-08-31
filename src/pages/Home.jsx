@@ -42,7 +42,7 @@ export default function Home() {
         
         <div className={styles.categoryMasonry}>
           <Link to="/shop?category=womens" className={clsx(styles.categoryCard, styles.cardLarge)}>
-            <img src="/images/prod-1.png" alt="Women's Jutti" loading="lazy" />
+            <img src={`${import.meta.env.BASE_URL}images/prod-1.png`} alt="Women's Jutti" loading="lazy" />
             <div className={styles.categoryOverlay}>
               <h3>Women's Collection</h3>
               <span>Explore</span>
@@ -51,14 +51,14 @@ export default function Home() {
           
           <div className={styles.categoryColumn}>
             <Link to="/shop?category=bridal" className={styles.categoryCard}>
-              <img src="/images/prod-2.png" alt="Bridal Collection" loading="lazy" />
+              <img src={`${import.meta.env.BASE_URL}images/prod-2.png`} alt="Bridal Collection" loading="lazy" />
               <div className={styles.categoryOverlay}>
                 <h3>Bridal Edit</h3>
                 <span>Explore</span>
               </div>
             </Link>
             <Link to="/shop?category=mens" className={styles.categoryCard}>
-              <img src="/images/prod-3.png" alt="Men's Jutti" loading="lazy" />
+              <img src={`${import.meta.env.BASE_URL}images/prod-3.png`} alt="Men's Jutti" loading="lazy" />
               <div className={styles.categoryOverlay}>
                 <h3>Men's Classic</h3>
                 <span>Explore</span>

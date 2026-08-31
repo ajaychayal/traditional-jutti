@@ -2,7 +2,7 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
-export default defineConfig({
-  base: '/traditional-jutti/',
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/traditional-jutti/' : '/',
   plugins: [react()],
-})
+}))
