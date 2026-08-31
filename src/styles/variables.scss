@@ -1,0 +1,95 @@
+:root {
+  /* Brand Colors */
+  --color-primary: #8b1e3f;
+  --color-primary-hover: #6f1632;
+  --color-primary-light: #f8e8ed;
+  --color-secondary: #d4a017;
+  --color-secondary-hover: #b8860b;
+
+  /* Neutral Colors */
+  --color-white: #ffffff;
+  --color-black: #111111;
+  --color-text: #222222;
+  --color-text-muted: #6b7280;
+  --color-heading: #1f2937;
+  --color-border: #e5e7eb;
+  --color-border-dark: #d1d5db;
+  --color-background: #ffffff;
+  --color-background-soft: #faf7f2;
+  --color-surface: #ffffff;
+
+  /* Status Colors */
+  --color-success: #198754;
+  --color-success-light: #e8f7ee;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fff7e6;
+  --color-danger: #dc3545;
+  --color-danger-light: #fdecec;
+  --color-info: #0d6efd;
+  --color-info-light: #eaf3ff;
+
+  /* Product Colors */
+  --color-sale: #c1121f;
+  --color-new: #2563eb;
+  --color-best-seller: #7c3aed;
+  --color-out-of-stock: #6b7280;
+
+  /* Overlay and Shadow */
+  --color-overlay: rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.16);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+  /* Typography Variables */
+  --font-family-base: "Inter", system-ui, -apple-system, sans-serif;
+  --font-family-heading: "Playfair Display", Georgia, serif;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: clamp(1.25rem, 3vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 4vw, 2rem);
+  --font-size-3xl: clamp(2rem, 5vw, 3rem);
+  --font-size-4xl: clamp(2.5rem, 6vw, 4rem);
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  /* Spacing Variables */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-pill: 999px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+
+  /* Container */
+  --max-width-container: 1280px;
+}

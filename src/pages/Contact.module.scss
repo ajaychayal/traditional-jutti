@@ -1,0 +1,198 @@
+.contactPage {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.heroSection {
+  background-color: var(--color-background-soft);
+  padding: var(--space-20) 0 var(--space-16);
+  text-align: center;
+  
+  h1 {
+    font-family: var(--font-family-serif, serif);
+    font-size: var(--font-size-4xl);
+    font-weight: 300;
+    margin-bottom: var(--space-4);
+    color: var(--color-heading);
+  }
+  
+  p {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+.eyebrow {
+  display: block;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--space-4);
+  color: var(--color-primary);
+}
+
+.mainSection {
+  margin-top: -30px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: var(--space-20);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  
+  @media (min-width: 992px) {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+}
+
+.infoColumn {
+  h2 {
+    font-family: var(--font-family-serif, serif);
+    font-size: var(--font-size-2xl);
+    font-weight: 400;
+    margin-bottom: var(--space-2);
+  }
+  
+  .infoDesc {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+  }
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.infoCard {
+  background-color: var(--color-surface);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+  
+  h3 {
+    margin: var(--space-4) 0 var(--space-2);
+    font-size: var(--font-size-lg);
+    color: var(--color-heading);
+  }
+  
+  p {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    margin: 0;
+  }
+}
+
+.iconWrapper {
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formContainer {
+  background-color: var(--color-surface);
+  padding: var(--space-8);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+  
+  h2 {
+    font-family: var(--font-family-serif, serif);
+    font-size: var(--font-size-2xl);
+    font-weight: 400;
+    margin-bottom: var(--space-6);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.inputGroup {
+  position: relative;
+  
+  input, textarea {
+    width: 100%;
+    padding: var(--space-4) var(--space-3) var(--space-2);
+    border: none;
+    border-bottom: 2px solid var(--color-border);
+    background-color: transparent;
+    font-family: inherit;
+    font-size: var(--font-size-md);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast);
+    
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary);
+    }
+    
+    /* Floating Label Logic */
+    &:focus ~ label,
+    &:not(:placeholder-shown) ~ label {
+      transform: translateY(-20px) scale(0.85);
+      color: var(--color-primary);
+    }
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  label {
+    position: absolute;
+    left: var(--space-3);
+    top: var(--space-3);
+    color: var(--color-text-muted);
+    pointer-events: none;
+    transform-origin: left top;
+    transition: all var(--transition-fast);
+  }
+}
+
+.submitBtn {
+  margin-top: var(--space-4);
+  width: 100%;
+}
+
+.mapSection {
+  height: 400px;
+  width: 100%;
+  background-color: var(--color-background-soft);
+}
+
+.mapPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-family-serif, serif);
+  font-size: var(--font-size-xl);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="%23cccccc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100px;
+  opacity: 0.5;
+}
