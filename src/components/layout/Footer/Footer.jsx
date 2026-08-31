@@ -12,7 +12,7 @@ export default function Footer() {
           {/* Brand Info */}
           <div className={styles.footerCol}>
             <Link to="/" className={styles.logo}>
-              <img src="/images/footer-logo.png" alt="JuttiStyle Logo" className={styles.logoImage} />
+              <img src={`${import.meta.env.BASE_URL}images/footer-logo.png`} alt="JuttiStyle Logo" className={styles.logoImage} />
             </Link>
             <p className={styles.description}>
               Step into tradition with our handcrafted Punjabi Juttis. Made for modern style, built with heritage craftsmanship.

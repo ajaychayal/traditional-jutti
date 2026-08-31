@@ -9,7 +9,7 @@ const ranges = [
     title: 'The Bridal Edit',
     subtitle: 'For your special day',
     description: 'Heavily embellished with zari, dabka, and beads. Designed to make you feel like royalty on your wedding day.',
-    image: '/images/prod-7.png',
+    image: `${import.meta.env.BASE_URL}images/prod-7.png`,
     link: '/shop?category=bridal'
   },
   {
@@ -17,7 +17,7 @@ const ranges = [
     title: 'Festive & Party',
     subtitle: 'Stand out in the crowd',
     description: 'Vibrant colors, sequin work, and elegant motifs perfect for Diwali, Eid, or any joyous celebration.',
-    image: '/images/prod-8.png',
+    image: `${import.meta.env.BASE_URL}images/prod-8.png`,
     link: '/shop?collection=featured'
   },
   {
@@ -25,7 +25,7 @@ const ranges = [
     title: 'Everyday Classic',
     subtitle: 'Comfort meets style',
     description: 'Subtle embroidery, printed fabrics, and solid leathers designed for all-day comfort at work or casual outings.',
-    image: '/images/prod-9.png',
+    image: `${import.meta.env.BASE_URL}images/prod-9.png`,
     link: '/shop?category=womens'
   },
   {
@@ -33,7 +33,7 @@ const ranges = [
     title: 'Men\'s Heritage',
     subtitle: 'Classic masculinity',
     description: 'Traditional Tilla work and sophisticated leather finishes for the modern gentleman.',
-    image: '/images/prod-10.png',
+    image: `${import.meta.env.BASE_URL}images/prod-10.png`,
     link: '/shop?category=mens'
   }
 ];

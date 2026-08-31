@@ -8,8 +8,8 @@ export const products = [
     rating: 4.8,
     reviews: 124,
     images: [
-      '/images/prod-1.png',
-      '/images/prod-2.png'
+      `${import.meta.env.BASE_URL}images/prod-1.png`,
+      `${import.meta.env.BASE_URL}images/prod-2.png`
     ],
     badges: ['sale', 'bestSeller'],
     sizes: [36, 37, 38, 39, 40],
@@ -26,8 +26,8 @@ export const products = [
     rating: 4.5,
     reviews: 89,
     images: [
-      '/images/prod-3.png',
-      '/images/prod-4.png'
+      `${import.meta.env.BASE_URL}images/prod-3.png`,
+      `${import.meta.env.BASE_URL}images/prod-4.png`
     ],
     badges: [],
     sizes: [40, 41, 42, 43, 44],
@@ -44,8 +44,8 @@ export const products = [
     rating: 4.9,
     reviews: 210,
     images: [
-      '/images/prod-5.png',
-      '/images/prod-6.png'
+      `${import.meta.env.BASE_URL}images/prod-5.png`,
+      `${import.meta.env.BASE_URL}images/prod-6.png`
     ],
     badges: ['sale'],
     sizes: [36, 37, 38, 39, 40],
@@ -62,8 +62,8 @@ export const products = [
     rating: 4.7,
     reviews: 56,
     images: [
-      '/images/prod-7.png',
-      '/images/prod-8.png'
+      `${import.meta.env.BASE_URL}images/prod-7.png`,
+      `${import.meta.env.BASE_URL}images/prod-8.png`
     ],
     badges: ['new'],
     sizes: [37, 38, 39],
@@ -80,8 +80,8 @@ export const products = [
     rating: 4.6,
     reviews: 34,
     images: [
-      '/images/prod-9.png',
-      '/images/prod-10.png'
+      `${import.meta.env.BASE_URL}images/prod-9.png`,
+      `${import.meta.env.BASE_URL}images/prod-10.png`
     ],
     badges: [],
     sizes: [28, 29, 30, 31, 32],
@@ -98,8 +98,8 @@ export const products = [
     rating: 4.9,
     reviews: 78,
     images: [
-      '/images/prod-11.png',
-      '/images/prod-12.png'
+      `${import.meta.env.BASE_URL}images/prod-11.png`,
+      `${import.meta.env.BASE_URL}images/prod-12.png`
     ],
     badges: ['sale', 'featured'],
     sizes: [41, 42, 43],
