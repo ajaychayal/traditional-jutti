@@ -151,10 +151,17 @@
 
 .formActions {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column-reverse;
+  gap: var(--space-4);
   margin-top: var(--space-8);
   padding-top: var(--space-6);
   border-top: 1px solid var(--color-border);
+  
+  @media (min-width: 640px) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+  }
 }
 
 .paymentMethods {
