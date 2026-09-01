@@ -1,0 +1,96 @@
+.global-loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-primary, #ffffff);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out;
+
+  /* Use a dark background if theme is dark */
+  [data-theme="dark"] & {
+    background-color: var(--bg-primary, #121212);
+  }
+
+  .loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .rings {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 4px solid transparent;
+      border-top-color: var(--accent-color, #cda751);
+      animation: spin 1.5s linear infinite;
+
+      &:nth-child(2) {
+        width: 80%;
+        height: 80%;
+        border-top-color: transparent;
+        border-right-color: var(--text-primary, #333);
+        animation: spin-reverse 2s linear infinite;
+        
+        [data-theme="dark"] & {
+          border-right-color: var(--text-primary, #fff);
+        }
+      }
+
+      &:nth-child(3) {
+        width: 60%;
+        height: 60%;
+        border-top-color: transparent;
+        border-bottom-color: var(--accent-color, #cda751);
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+
+  .loader-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--text-primary, #333);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+    background: linear-gradient(45deg, var(--accent-color, #cda751), #e6c875);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: pulse 2s ease-in-out infinite;
+
+    [data-theme="dark"] & {
+      color: var(--text-primary, #fff);
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
