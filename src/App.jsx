@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import GlobalLoader from './components/ui/GlobalLoader/GlobalLoader';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
@@ -40,6 +41,7 @@ function App() {
 
   return (
     <>
+      <GlobalLoader />
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />

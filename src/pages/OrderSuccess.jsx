@@ -41,9 +41,17 @@ export default function OrderSuccess() {
               <strong>{orderDetails.paymentMethod.toUpperCase()}</strong>
             </div>
           </div>
+
+          <div className={styles.shippingBox}>
+            <h3>Shipping Information</h3>
+            <p><strong>Name:</strong> {orderDetails.shippingAddress.name}</p>
+            <p><strong>Email:</strong> {orderDetails.email}</p>
+            <p><strong>Phone:</strong> {orderDetails.shippingAddress.phone}</p>
+            <p><strong>Address:</strong> {orderDetails.shippingAddress.address}, {orderDetails.shippingAddress.city}, {orderDetails.shippingAddress.state} - {orderDetails.shippingAddress.pinCode}</p>
+          </div>
           
           <p className={styles.confirmationMsg}>
-            We've sent a confirmation email to <strong>{orderDetails.email}</strong> with order details and a tracking link.
+            We've sent a confirmation email with order details and a tracking link.
           </p>
           
           <div className={styles.nextSteps}>
@@ -59,17 +67,22 @@ export default function OrderSuccess() {
           </div>
           
           <div className={styles.actions}>
-            <Link to={`/account/tracking/${orderDetails.orderId}`}>
-              <Button variant="primary" size="lg" style={{ width: '100%', marginBottom: '1rem' }}>
-                <Navigation size={18} style={{ marginRight: '8px' }} /> Track Order
+            <Link to="/account" state={{ tab: 'dashboard' }}>
+              <Button variant="primary" size="lg" style={{ width: '100%' }}>
+                Go to Dashboard
               </Button>
             </Link>
             
-            <h3 style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)', marginBottom: 'var(--space-2)' }}>Quick Links</h3>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--space-2)', justifyContent: 'center' }}>
-              <Link to="/account" state={{ tab: 'dashboard' }}>
-                <Button variant="outline" size="sm">Dashboard</Button>
-              </Link>
+            <Link to={`/account/tracking/${orderDetails.orderId}`}>
+              <Button variant="outline" size="lg" style={{ width: '100%' }}>
+                <Navigation size={18} style={{ marginRight: '8px' }} /> Track Order
+              </Button>
+            </Link>
+          </div>
+          
+          <div className={styles.quickLinks}>
+            <h3>Quick Links</h3>
+            <div className={styles.quickLinksList}>
               <Link to="/account" state={{ tab: 'orders' }}>
                 <Button variant="outline" size="sm">My Orders</Button>
               </Link>
