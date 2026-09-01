@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm as useHookForm } from 'react-hook-form';
 import clsx from 'clsx';
@@ -18,6 +18,7 @@ export default function Checkout() {
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('card');
+  const [orderPlaced, setOrderPlaced] = useState(false);
   
   const { register, handleSubmit, formState: { errors }, trigger } = useHookForm({
     defaultValues: {
@@ -74,6 +75,7 @@ export default function Checkout() {
         }
       };
 
+      setOrderPlaced(true);
       dispatch(placeOrder(orderData));
       dispatch(clearCart());
       
@@ -81,9 +83,9 @@ export default function Checkout() {
     }, 2000);
   };
 
-  if (cartItems.length === 0) {
-    navigate('/cart');
-    return null;
+
+  if (cartItems.length === 0 && !orderPlaced) {
+    return <Navigate to="/cart" replace />;
   }
 
   return (
