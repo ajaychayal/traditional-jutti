@@ -1,0 +1,227 @@
+.usersContainer {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-6);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  width: 100%;
+  max-width: 400px;
+  
+  svg {
+    color: var(--color-text-light);
+    margin-right: var(--space-2);
+  }
+
+  input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    color: var(--color-text);
+  }
+}
+
+.sortSelect {
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  outline: none;
+  cursor: pointer;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.usersTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th, td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  th {
+    color: var(--color-text-light);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  td {
+    color: var(--color-text);
+  }
+}
+
+.userProfileCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.name {
+  font-weight: 500;
+  color: var(--color-heading);
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 500;
+  
+  &.active {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+  
+  &.inactive {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+}
+
+.actionBtn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  color: var(--color-primary);
+  font-weight: 500;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: var(--space-6);
+  gap: var(--space-4);
+
+  button {
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.loadingState, .emptyState, .errorState {
+  text-align: center;
+  padding: var(--space-12) 0;
+  color: var(--color-text-light);
+}
+
+.errorState {
+  color: var(--color-error);
+}
+
+// Modal Styles
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: var(--color-surface);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 500px;
+  box-shadow: var(--shadow-lg);
+
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-4);
+
+    h3 {
+      margin: 0;
+    }
+
+    button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: var(--color-text-light);
+    }
+  }
+}
+
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px dashed var(--color-border);
+
+  strong {
+    color: var(--color-heading);
+  }
+
+  span {
+    color: var(--color-text);
+  }
+}

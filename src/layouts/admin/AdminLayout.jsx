@@ -1,8 +1,18 @@
-import { NavLink, Outlet, Link } from 'react-router-dom';
+import { NavLink, Outlet, Link, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Package, ShoppingBag, Users, Settings, LogOut, ArrowLeft } from 'lucide-react';
+import { useUser, useClerk } from '@clerk/react';
 import styles from './AdminLayout.module.scss';
 
 export default function AdminLayout() {
+  const { user } = useUser();
+  const { signOut } = useClerk();
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await signOut();
+    navigate('/');
+  };
   return (
     <div className={styles.adminContainer}>
       {/* Sidebar */}
@@ -24,18 +34,18 @@ export default function AdminLayout() {
           <a href="#" className={styles.disabledLink}>
             <ShoppingBag size={20} /> Orders
           </a>
-          <a href="#" className={styles.disabledLink}>
-            <Users size={20} /> Customers
-          </a>
+          <NavLink to="/admin/users" className={({isActive}) => isActive ? styles.active : ''}>
+            <Users size={20} /> Users
+          </NavLink>
           <a href="#" className={styles.disabledLink}>
             <Settings size={20} /> Settings
           </a>
         </nav>
         
         <div className={styles.sidebarFooter}>
-          <Link to="/" className={styles.logoutBtn}>
+          <button onClick={handleLogout} className={styles.logoutBtn} style={{ background: 'transparent', border: 'none', width: '100%', display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
             <LogOut size={20} /> Exit Admin
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -47,8 +57,12 @@ export default function AdminLayout() {
           </div>
           <div className={styles.headerRight}>
             <div className={styles.adminProfile}>
-              <div className={styles.avatar}>A</div>
-              <span>Admin User</span>
+              {user?.imageUrl ? (
+                <img src={user.imageUrl} alt={user.fullName || 'Admin'} className={styles.avatar} style={{ objectFit: 'cover' }} />
+              ) : (
+                <div className={styles.avatar}>{user?.firstName?.charAt(0) || 'A'}</div>
+              )}
+              <span>{user?.fullName || 'Admin User'}</span>
             </div>
           </div>
         </header>

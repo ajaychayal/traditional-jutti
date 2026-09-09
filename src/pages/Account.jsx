@@ -11,7 +11,8 @@ import styles from './Account.module.scss';
 import clsx from 'clsx';
 
 export default function Account() {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, isSignedIn } = useUser();
+  const { signOut } = useClerk();
   const orders = useSelector((state) => state.order.orders);
   const wishlistItems = useSelector((state) => state.wishlist.items);
   
@@ -77,13 +78,13 @@ export default function Account() {
     }
   }, [location]);
 
-  if (!isAuthenticated) {
+  if (!isSignedIn) {
     navigate('/login');
     return null;
   }
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    await signOut();
     navigate('/');
   };
 
@@ -106,10 +107,10 @@ export default function Account() {
       <div className={clsx('container', styles.accountContainer)}>
         <aside className={styles.sidebar}>
           <div className={styles.profileSummary}>
-            <div className={styles.avatar}>{user?.name?.charAt(0) || 'U'}</div>
+            <div className={styles.avatar}>{user?.firstName?.charAt(0) || 'U'}</div>
             <div>
-              <h3>{user?.name || 'User'}</h3>
-              <p>{user?.email}</p>
+              <h3>{user?.fullName || 'User'}</h3>
+              <p>{user?.primaryEmailAddress?.emailAddress}</p>
             </div>
           </div>
           
@@ -334,8 +335,8 @@ export default function Account() {
                       <Button variant="primary" size="sm" onClick={handleSaveProfile}>Save Changes</Button>
                       <Button variant="outline" size="sm" onClick={() => {
                         setIsEditingProfile(false);
-                        setProfileName(user?.name || '');
-                        setProfileEmail(user?.email || '');
+                        setProfileName(user?.fullName || '');
+                        setProfileEmail(user?.primaryEmailAddress?.emailAddress || '');
                       }}>Cancel</Button>
                     </div>
                   ) : (
