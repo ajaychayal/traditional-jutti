@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { ShoppingCart, Heart, User, Search, Menu, X, Package, Settings, LogOut, LogIn, UserPlus } from 'lucide-react';
 import clsx from 'clsx';
-import { logout } from '../../../store/authSlice';
+import { useAuth, useUser, useClerk } from '@clerk/react';
 import Button from '../../ui/Button/Button';
 import Badge from '../../ui/Badge/Badge';
 import styles from './Header.module.scss';
@@ -17,7 +17,10 @@ export default function Header() {
   const cartTotalQuantity = useSelector((state) => state.cart.totalQuantity);
   const wishlistItems = useSelector((state) => state.wishlist.items);
   const theme = useSelector((state) => state.theme.theme);
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+
+  const { isSignedIn } = useAuth();
+  const { user } = useUser();
+  const { signOut } = useClerk();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,8 +36,8 @@ export default function Header() {
     }
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleLogout = async () => {
+    await signOut();
     setIsUserDropdownOpen(false);
     navigate('/');
   };
@@ -98,18 +101,22 @@ export default function Header() {
               className={styles.iconBtn}
               onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
             >
-              <User size={20} />
+              {isSignedIn && user?.imageUrl ? (
+                <img src={user.imageUrl} alt={user.fullName || 'User'} style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover' }} />
+              ) : (
+                <User size={20} />
+              )}
             </Button>
 
             {isUserDropdownOpen && (
               <>
                 <div className={styles.dropdownOverlay} onClick={() => setIsUserDropdownOpen(false)}></div>
                 <div className={styles.userDropdown}>
-                  {isAuthenticated ? (
+                  {isSignedIn ? (
                     <>
                       <div className={styles.dropdownHeader}>
-                        <p className={styles.dropdownName}>{user?.name || 'User'}</p>
-                        <p className={styles.dropdownEmail}>{user?.email}</p>
+                        <p className={styles.dropdownName}>{user?.fullName || 'User'}</p>
+                        <p className={styles.dropdownEmail}>{user?.primaryEmailAddress?.emailAddress}</p>
                       </div>
                       <div className={styles.dropdownLinks}>
                         <Link to="/account" state={{ tab: 'dashboard' }} onClick={() => setIsUserDropdownOpen(false)}>

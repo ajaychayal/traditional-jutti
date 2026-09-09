@@ -31,6 +31,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import AdminLayout from './layouts/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminProducts from './pages/admin/AdminProducts';
+import AdminUsers from './pages/admin/AdminUsers';
+import AdminRoute from './components/auth/AdminRoute';
 
 function App() {
   const theme = useSelector((state) => state.theme.theme);
@@ -70,9 +72,12 @@ function App() {
         </Route>
 
         {/* Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="products" element={<AdminProducts />} />
+        <Route element={<AdminRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="users" element={<AdminUsers />} />
+          </Route>
         </Route>
       </Routes>
       <AIChatWidget />

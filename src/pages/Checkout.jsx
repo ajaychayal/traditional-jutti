@@ -7,7 +7,9 @@ import { clearCart } from '../store/cartSlice';
 import { placeOrder } from '../store/orderSlice';
 import Button from '../components/ui/Button/Button';
 import Badge from '../components/ui/Badge/Badge';
+import { loadRazorpay } from '../utils/loadRazorpay';
 import styles from './Checkout.module.scss';
+import { toast } from 'react-toastify';
 
 export default function Checkout() {
   const navigate = useNavigate();
@@ -51,36 +53,103 @@ export default function Checkout() {
     }
   };
 
-  const handlePayment = (data) => {
+  const handlePayment = async (data) => {
     setIsProcessing(true);
-    // Fake payment processing
-    setTimeout(() => {
-      setIsProcessing(false);
-      
-      const orderId = `JUTTI-${Math.floor(10000 + Math.random() * 90000)}`;
-      
+    
+    if (paymentMethod === 'cod') {
       const orderData = {
-        orderId,
+        orderId: `JUTTI-COD-${Math.floor(10000 + Math.random() * 90000)}`,
         total: finalTotal,
-        paymentMethod: paymentMethod,
+        paymentMethod: 'cod',
         email: data.email,
         items: cartItems,
-        shippingAddress: {
-          name: `${data.firstName} ${data.lastName}`,
-          phone: data.phone,
-          address: data.address,
-          city: data.city,
-          state: data.state,
-          pinCode: data.pinCode
-        }
+        shippingAddress: data
       };
-
-      setOrderPlaced(true);
       dispatch(placeOrder(orderData));
       dispatch(clearCart());
-      
       navigate('/order-success', { state: orderData });
-    }, 2000);
+      setIsProcessing(false);
+      return;
+    }
+
+    try {
+      const res = await loadRazorpay();
+      if (!res) {
+        toast.error('Razorpay SDK failed to load. Are you online?');
+        setIsProcessing(false);
+        return;
+      }
+
+      // Create a new order on backend
+      const result = await fetch('http://localhost:3001/api/payment/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: finalTotal, currency: 'INR' })
+      });
+      
+      if (!result.ok) {
+        toast.error('Server error. Could not generate payment order.');
+        setIsProcessing(false);
+        return;
+      }
+
+      const orderData = await result.json();
+
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'dummy_key', 
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "Punjabi Jutti",
+        description: "Test Transaction",
+        order_id: orderData.id,
+        handler: async function (response) {
+          const verifyData = {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          };
+
+          const verifyRes = await fetch('http://localhost:3001/api/payment/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(verifyData)
+          });
+          
+          const verifyResult = await verifyRes.json();
+          if (verifyResult.success) {
+            toast.success('Payment successful!');
+            const newOrder = {
+              orderId: response.razorpay_order_id,
+              total: finalTotal,
+              paymentMethod: 'razorpay',
+              email: data.email,
+              items: cartItems,
+              shippingAddress: data
+            };
+            dispatch(placeOrder(newOrder));
+            dispatch(clearCart());
+            navigate('/order-success', { state: newOrder });
+          } else {
+            toast.error('Payment verification failed.');
+          }
+        },
+        prefill: {
+          name: `${data.firstName} ${data.lastName}`,
+          email: data.email,
+          contact: data.phone,
+        },
+        theme: {
+          color: "#8b1e3f",
+        },
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (err) {
+      toast.error('An error occurred during payment setup.');
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
 
