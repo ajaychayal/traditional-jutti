@@ -4,6 +4,7 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { LogOut, Package, User, Heart, Settings, Navigation, Bell, Lock, Shield, Eye, EyeOff } from 'lucide-react';
 import { logout, updateUser } from '../store/authSlice';
 import { toast } from 'react-toastify';
+import { useUser, useClerk } from '@clerk/react';
 import Button from '../components/ui/Button/Button';
 import Badge from '../components/ui/Badge/Badge';
 import ProductCard from '../components/product/ProductCard/ProductCard';

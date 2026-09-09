@@ -96,16 +96,22 @@ export default function Header() {
 
           <div className={styles.userDropdownContainer}>
             <Button
-              variant="icon"
+              variant={isSignedIn ? "ghost" : "icon"}
               aria-label="Account"
-              className={styles.iconBtn}
+              className={styles.userProfileBtn}
               onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+              style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: isSignedIn ? '4px 12px' : '0', borderRadius: '30px' }}
             >
               {isSignedIn && user?.imageUrl ? (
-                <img src={user.imageUrl} alt={user.fullName || 'User'} style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover' }} />
+                <img src={user.imageUrl} alt={user.fullName || 'User'} style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
               ) : (
-                <User size={20} />
+                <User size={20} style={{ flexShrink: 0 }} />
               )}
+              {/* {isSignedIn && (
+                <span style={{ fontWeight: 600, fontSize: '15px', color: 'var(--color-heading)' }}>
+                  {user?.firstName ? user.firstName.charAt(0).toUpperCase() : ''}
+                </span>
+              )} */}
             </Button>
 
             {isUserDropdownOpen && (
