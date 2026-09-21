@@ -1,14 +1,29 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import { products } from '../data/products';
 import ProductCard from '../components/product/ProductCard/ProductCard';
 import Button from '../components/ui/Button/Button';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 import styles from './Home.module.scss';
 
 export default function Home() {
-  const featuredProducts = products.filter(p => p.badges.includes('featured') || p.badges.includes('new')).slice(0, 4);
-  const bestSellers = products.filter(p => p.badges.includes('bestSeller')).slice(0, 4);
+  const [products, setProducts] = useState([]);
+  
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('http://localhost:3001/api/products');
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const featuredProducts = products.filter(p => p.isNewProduct || p.isBestSeller).slice(0, 4);
+  const bestSellers = products.filter(p => p.isBestSeller).slice(0, 4);
 
   return (
     <div className={styles.home}>

@@ -1,8 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import clsx from 'clsx';
 import { Filter, X, ChevronDown } from 'lucide-react';
-import { products } from '../data/products';
 import ProductCard from '../components/product/ProductCard/ProductCard';
 import Button from '../components/ui/Button/Button';
 import styles from './Shop.module.scss';
@@ -13,6 +12,9 @@ export default function Shop() {
   const initialCollection = searchParams.get('collection');
   const searchQuery = searchParams.get('search');
 
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState({
     category: initialCategory ? [initialCategory] : [],
@@ -20,6 +22,21 @@ export default function Shop() {
     color: [],
   });
   const [sortBy, setSortBy] = useState('popular');
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch('http://localhost:3001/api/products');
+        const data = await res.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const toggleFilterMenu = () => setIsFilterOpen(!isFilterOpen);
 
@@ -37,11 +54,9 @@ export default function Shop() {
     let result = [...products];
 
     if (initialCollection === 'new-arrivals') {
-      result = result.filter(p => p.badges.includes('new'));
+      result = result.filter(p => p.isNewProduct);
     } else if (initialCollection === 'best-sellers') {
-      result = result.filter(p => p.badges.includes('bestSeller'));
-    } else if (initialCollection === 'featured') {
-      result = result.filter(p => p.badges.includes('featured'));
+      result = result.filter(p => p.isBestSeller);
     }
 
     // Apply search query
@@ -49,7 +64,7 @@ export default function Shop() {
       const q = searchQuery.toLowerCase();
       result = result.filter(p => 
         p.name.toLowerCase().includes(q) || 
-        p.description.toLowerCase().includes(q)
+        p.description?.toLowerCase().includes(q)
       );
     }
 
@@ -59,11 +74,11 @@ export default function Shop() {
     }
     
     if (filters.size.length > 0) {
-      result = result.filter(p => p.sizes.some(size => filters.size.includes(size.toString())));
+      result = result.filter(p => p.sizes?.some(size => filters.size.includes(size.toString())));
     }
 
     if (filters.color.length > 0) {
-      result = result.filter(p => p.colors.some(c => filters.color.includes(c)));
+      result = result.filter(p => p.colors?.some(c => filters.color.includes(c)));
     }
 
     // Sorting
@@ -82,11 +97,15 @@ export default function Shop() {
     }
 
     return result;
-  }, [filters, sortBy, initialCollection, searchQuery]);
+  }, [products, filters, sortBy, initialCollection, searchQuery]);
 
   // Extract unique filter options from products
-  const allSizes = [...new Set(products.flatMap(p => p.sizes))].sort();
-  const allColors = [...new Set(products.flatMap(p => p.colors))].sort();
+  const allSizes = [...new Set(products.flatMap(p => p.sizes || []))].sort();
+  const allColors = [...new Set(products.flatMap(p => p.colors || []))].sort();
+
+  if (loading) {
+    return <div style={{ padding: '100px 20px', textAlign: 'center' }}>Loading Collection...</div>;
+  }
 
   return (
     <div className={styles.shopPage}>
@@ -134,7 +153,7 @@ export default function Shop() {
           <div className={styles.filterSection}>
             <h3 className={styles.filterTitle}>Category</h3>
             <div className={styles.filterOptions}>
-              {['womens', 'mens', 'kids', 'bridal'].map(cat => (
+              {['traditional', 'bridal', 'casual', 'premium', 'festive'].map(cat => (
                 <label key={cat} className={styles.checkboxLabel}>
                   <input 
                     type="checkbox" 

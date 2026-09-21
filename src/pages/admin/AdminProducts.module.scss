@@ -156,3 +156,42 @@
     color: var(--color-danger);
   }
 }
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+}
+.modalContent {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  width: 90%; max-width: 600px;
+  max-height: 90vh; overflow-y: auto;
+  padding: var(--space-6);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.modalHeader {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: var(--space-4);
+}
+.closeBtn {
+  background: none; border: none; cursor: pointer; color: var(--color-text-muted);
+}
+.modalForm { display: flex; flex-direction: column; gap: var(--space-4); }
+.formRow { display: flex; gap: var(--space-4); }
+.formGroup {
+  display: flex; flex-direction: column; gap: var(--space-2); flex: 1;
+  label { font-size: var(--font-size-sm); font-weight: 500; }
+  input, select, textarea {
+    padding: var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-md); outline: none;
+    &:focus { border-color: var(--color-primary); }
+  }
+}
+.imageUploadBox {
+  border: 2px dashed var(--color-border); border-radius: var(--radius-md); padding: var(--space-4); text-align: center;
+  .fileInput { display: none; }
+  .fileLabel { cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: var(--space-2); color: var(--color-text-muted); }
+}
+.modalActions { display: flex; justify-content: flex-end; gap: var(--space-4); margin-top: var(--space-4); }
+
