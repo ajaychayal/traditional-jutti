@@ -11,97 +11,142 @@
 }
 
 .statCard {
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
+  background-color: #111827; // Slate 900
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
   padding: var(--space-6);
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(56, 189, 248, 0.1);
+    border-color: rgba(56, 189, 248, 0.3);
+  }
 }
 
 .statIcon {
-  width: 48px;
-  height: 48px;
-  background-color: var(--color-primary-light);
-  color: var(--color-primary);
-  border-radius: var(--radius-md);
+  width: 54px;
+  height: 54px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(56, 189, 248, 0.05));
+  color: #38bdf8;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid rgba(56, 189, 248, 0.2);
 }
 
 .statInfo {
   p {
     margin: 0;
-    color: var(--color-text-muted);
+    color: #94a3b8;
     font-size: var(--font-size-sm);
+    font-weight: 500;
   }
   
   h3 {
     margin: var(--space-1) 0;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-2xl);
+    color: #f8fafc;
+    letter-spacing: -0.5px;
   }
   
   .trend {
-    color: var(--color-success);
+    color: #10b981; // Emerald 500
     font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
+    font-weight: 600;
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 4px;
   }
 }
 
 .recentOrders {
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
+  background-color: #111827;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
   padding: var(--space-6);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   
   h3 {
     margin-top: 0;
     margin-bottom: var(--space-6);
+    color: #f8fafc;
+    font-size: var(--font-size-lg);
   }
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 8px;
   
   th, td {
     padding: var(--space-4);
     text-align: left;
-    border-bottom: 1px solid var(--color-border);
   }
   
   th {
-    color: var(--color-text-muted);
-    font-weight: var(--font-weight-medium);
+    color: #94a3b8;
+    font-weight: 600;
     font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: var(--space-3);
+  }
+  
+  td {
+    background-color: rgba(255,255,255,0.02);
+    color: #cbd5e1;
+    
+    &:first-child {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+    
+    &:last-child {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+  }
+  
+  tr:hover td {
+    background-color: rgba(56, 189, 248, 0.05);
   }
 }
 
 .statusProcessing {
-  color: var(--color-warning);
-  background-color: var(--color-warning-light);
-  padding: 4px 8px;
+  color: #f59e0b; // Amber 500
+  background-color: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  padding: 4px 10px;
   border-radius: var(--radius-pill);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
 }
 
 .statusShipped {
-  color: var(--color-info);
-  background-color: var(--color-info-light);
-  padding: 4px 8px;
+  color: #38bdf8; // Sky 400
+  background-color: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  padding: 4px 10px;
   border-radius: var(--radius-pill);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
 }
 
 .statusDelivered {
-  color: var(--color-success);
-  background-color: var(--color-success-light);
-  padding: 4px 8px;
+  color: #10b981; // Emerald 500
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 4px 10px;
   border-radius: var(--radius-pill);
   font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
+  font-weight: 600;
 }

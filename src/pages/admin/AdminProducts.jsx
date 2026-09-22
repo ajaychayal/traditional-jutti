@@ -23,10 +23,19 @@ export default function AdminProducts() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:3001/api/products');
+      const token = await getToken();
+      const res = await fetch('http://localhost:3001/api/products', {
+        headers: {
+          ...(token && { Authorization: `Bearer ${token}` })
+        }
+      });
+      if (!res.ok) {
+        throw new Error('Failed to fetch products. Server returned status: ' + res.status);
+      }
       const data = await res.json();
       setProducts(data);
     } catch (err) {
+      console.error(err);
       toast.error('Failed to load products');
     } finally {
       setLoading(false);

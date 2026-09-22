@@ -14,22 +14,25 @@ const cartSlice = createSlice({
     addToCart(state, action) {
       const newItem = action.payload;
       const quantityToAdd = newItem.quantity || 1;
+      const effectivePrice = newItem.salePrice || newItem.price;
       const existingItem = state.items.find(
         (item) => item.id === newItem.id && item.size === newItem.size && item.color === newItem.color
       );
 
       state.totalQuantity += quantityToAdd;
-      state.totalAmount += newItem.price * quantityToAdd;
+      state.totalAmount += effectivePrice * quantityToAdd;
 
       if (existingItem) {
         existingItem.quantity += quantityToAdd;
-        existingItem.totalPrice += newItem.price * quantityToAdd;
+        existingItem.totalPrice += effectivePrice * quantityToAdd;
         toast.info(`Increased quantity of ${newItem.name} in cart.`);
       } else {
         state.items.push({
           ...newItem,
+          price: effectivePrice, // Override price with effective price for display in cart
+          originalPrice: newItem.price, // Keep original for reference if needed
           quantity: quantityToAdd,
-          totalPrice: newItem.price * quantityToAdd,
+          totalPrice: effectivePrice * quantityToAdd,
         });
         toast.success(`${newItem.name} added to cart!`);
       }

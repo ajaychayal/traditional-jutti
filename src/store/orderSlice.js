@@ -10,11 +10,14 @@ const orderSlice = createSlice({
   reducers: {
     placeOrder(state, action) {
       const order = action.payload;
-      state.orders.push({
+      state.orders.unshift({ // Add to top
         ...order,
-        status: 'Processing',
-        date: new Date().toISOString(),
+        status: order.status || 'Processing',
+        date: order.date || new Date().toISOString(),
       });
+    },
+    setOrders(state, action) {
+      state.orders = action.payload;
     },
     updateOrderStatus(state, action) {
       const { orderId, status } = action.payload;
@@ -26,5 +29,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { placeOrder, updateOrderStatus } = orderSlice.actions;
+export const { placeOrder, setOrders, updateOrderStatus } = orderSlice.actions;
 export default orderSlice.reducer;

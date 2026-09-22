@@ -4,7 +4,8 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { LogOut, Package, User, Heart, Settings, Navigation, Bell, Lock, Shield, Eye, EyeOff } from 'lucide-react';
 import { logout, updateUser } from '../store/authSlice';
 import { toast } from 'react-toastify';
-import { useUser, useClerk } from '@clerk/react';
+import { setOrders } from '../store/orderSlice';
+import { useUser, useClerk, useAuth } from '@clerk/react';
 import Button from '../components/ui/Button/Button';
 import Badge from '../components/ui/Badge/Badge';
 import ProductCard from '../components/product/ProductCard/ProductCard';
@@ -14,6 +15,7 @@ import clsx from 'clsx';
 export default function Account() {
   const { user, isSignedIn } = useUser();
   const { signOut } = useClerk();
+  const { getToken } = useAuth();
   const orders = useSelector((state) => state.order.orders);
   const wishlistItems = useSelector((state) => state.wishlist.items);
   
@@ -70,6 +72,29 @@ export default function Account() {
       setProfileEmail(user.email || '');
     }
   }, [user]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const token = await getToken();
+        if (!token) return;
+        const response = await fetch('http://localhost:3001/api/orders/myorders', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          dispatch(setOrders(data));
+        }
+      } catch (error) {
+        console.error("Failed to fetch orders:", error);
+      }
+    };
+    if (isSignedIn) {
+      fetchOrders();
+    }
+  }, [isSignedIn, getToken, dispatch]);
 
   useEffect(() => {
     if (location.state?.tab) {

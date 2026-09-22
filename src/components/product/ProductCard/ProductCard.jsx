@@ -23,11 +23,11 @@ export default function ProductCard({ product }) {
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    // Defaulting to first size/color for quick add
+    // Defaulting to first size/color for quick add, with fallbacks for products without sizes/colors
     dispatch(addToCart({
       ...product,
-      size: product.sizes[0],
-      color: product.colors[0],
+      size: product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'Standard',
+      color: product.colors && product.colors.length > 0 ? product.colors[0] : 'Default',
     }));
   };
 
@@ -51,7 +51,7 @@ export default function ProductCard({ product }) {
         />
         
         <div className={styles.badges}>
-          {product.badges.map(badge => (
+          {(product.badges || []).map(badge => (
             <Badge 
               key={badge} 
               variant={badge === 'sale' ? 'sale' : badge === 'new' ? 'new' : 'bestSeller'}

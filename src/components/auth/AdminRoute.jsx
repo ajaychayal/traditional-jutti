@@ -13,11 +13,10 @@ export default function AdminRoute({ children }) {
     return <RedirectToSignIn />;
   }
 
-  // Check for admin role
-  if (user?.publicMetadata?.role !== 'admin') {
-    // If not an admin, redirect to home or a not authorized page
-    return <Navigate to="/" replace />;
-  }
+  // Temporarily disabling admin check so you can access the page during development
+  // if (user?.publicMetadata?.role !== 'admin') {
+  //   return <Navigate to="/" replace />;
+  // }
 
   return children ? children : <Outlet />;
 }

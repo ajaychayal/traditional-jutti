@@ -10,10 +10,12 @@ import Badge from '../components/ui/Badge/Badge';
 import { loadRazorpay } from '../utils/loadRazorpay';
 import styles from './Checkout.module.scss';
 import { toast } from 'react-toastify';
+import { useAuth } from '@clerk/react';
 
 export default function Checkout() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { getToken } = useAuth();
   const cartItems = useSelector(state => state.cart.items);
   const totalAmount = useSelector(state => state.cart.totalAmount);
   
@@ -65,6 +67,21 @@ export default function Checkout() {
         items: cartItems,
         shippingAddress: data
       };
+      
+      try {
+        const token = await getToken();
+        await fetch('http://localhost:3001/api/orders', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token && { Authorization: `Bearer ${token}` })
+          },
+          body: JSON.stringify(orderData)
+        });
+      } catch (error) {
+        console.error("Failed to save order to backend:", error);
+      }
+
       dispatch(placeOrder(orderData));
       dispatch(clearCart());
       navigate('/order-success', { state: orderData });
@@ -126,6 +143,21 @@ export default function Checkout() {
               items: cartItems,
               shippingAddress: data
             };
+            
+            try {
+              const token = await getToken();
+              await fetch('http://localhost:3001/api/orders', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  ...(token && { Authorization: `Bearer ${token}` })
+                },
+                body: JSON.stringify(newOrder)
+              });
+            } catch (error) {
+              console.error("Failed to save order to backend:", error);
+            }
+            
             dispatch(placeOrder(newOrder));
             dispatch(clearCart());
             navigate('/order-success', { state: newOrder });

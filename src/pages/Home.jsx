@@ -22,8 +22,13 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  const featuredProducts = products.filter(p => p.isNewProduct || p.isBestSeller).slice(0, 4);
-  const bestSellers = products.filter(p => p.isBestSeller).slice(0, 4);
+  // Backend returns products sorted by newest first, so we can just take the first 4 for New Arrivals
+  const featuredProducts = products.slice(0, 4);
+  
+  // Try to find best sellers, if none exist yet, just show another slice of products
+  const bestSellers = products.filter(p => p.isBestSeller).length > 0 
+    ? products.filter(p => p.isBestSeller).slice(0, 4) 
+    : products.slice(0, 4);
 
   return (
     <div className={styles.home}>

@@ -1,41 +1,51 @@
 .adminContainer {
   display: flex;
   height: 100vh;
-  background-color: var(--color-background-soft);
+  background-color: #0b0f19; // Deep dark blue/black
+  color: #e2e8f0; // Slate 200
   overflow: hidden;
+  font-family: 'Inter', sans-serif; // Modern font assumption
 }
 
 .sidebar {
-  width: 250px;
-  background-color: var(--color-primary-dark);
-  color: var(--color-gray-400);
+  width: 260px;
+  background-color: #111827; // Slate 900
+  color: #94a3b8; // Slate 400
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 4px 0 24px rgba(0,0,0,0.2);
+  z-index: 20;
 }
 
 .sidebarHeader {
-  height: 70px;
+  height: 76px;
   display: flex;
   align-items: center;
   padding: 0 var(--space-6);
-  background-color: var(--color-primary);
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
   gap: var(--space-4);
   
   h2 {
-    color: var(--color-white);
-    font-size: var(--font-size-xl);
+    color: #f8fafc;
+    font-size: var(--font-size-lg);
+    font-weight: 600;
     margin: 0;
+    letter-spacing: 0.5px;
   }
 }
 
 .backLink {
-  color: var(--color-gray-400);
+  color: #94a3b8;
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
   
   &:hover {
-    color: var(--color-white);
+    color: #38bdf8; // Electric blue accent
+    transform: translateX(-3px);
   }
 }
 
@@ -51,21 +61,26 @@
     align-items: center;
     gap: var(--space-4);
     padding: var(--space-3) var(--space-6);
-    color: var(--color-gray-400);
-    transition: all var(--transition-fast);
+    color: #94a3b8;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-left: 3px solid transparent;
     
     &:hover:not(.disabledLink) {
-      background-color: rgba(255, 255, 255, 0.05);
-      color: var(--color-white);
+      background-color: rgba(56, 189, 248, 0.05);
+      color: #f8fafc;
+      border-left-color: rgba(56, 189, 248, 0.5);
     }
     
     &.active {
-      background-color: var(--color-primary-light);
-      color: var(--color-white);
+      background-color: rgba(56, 189, 248, 0.1);
+      color: #38bdf8;
+      border-left-color: #38bdf8;
+      font-weight: 500;
     }
     
     &.disabledLink {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
     }
   }
@@ -73,17 +88,20 @@
 
 .sidebarFooter {
   padding: var(--space-6);
-  border-top: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background-color: rgba(0,0,0,0.2);
 }
 
 .logoutBtn {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  color: var(--color-gray-400);
+  gap: var(--space-3);
+  color: #94a3b8;
+  font-weight: 500;
+  transition: all 0.3s ease;
   
   &:hover {
-    color: var(--color-white);
+    color: #ef4444; // Rose 500 for logout
   }
 }
 
@@ -92,41 +110,49 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: #0b0f19; // Deep bg
 }
 
 .topHeader {
-  height: 70px;
-  background-color: var(--color-surface);
+  height: 76px;
+  background-color: rgba(15, 23, 42, 0.7); // Glassmorphism
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--space-8);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.1);
   z-index: 10;
 }
 
 .pageTitle {
   margin: 0;
   font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-heading);
+  font-weight: 600;
+  color: #f8fafc;
+  letter-spacing: -0.5px;
 }
 
 .adminProfile {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  font-weight: var(--font-weight-medium);
+  font-weight: 500;
+  color: #cbd5e1;
   
   .avatar {
-    width: 35px;
-    height: 35px;
-    background-color: var(--color-primary-light);
-    color: var(--color-primary);
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    color: #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
+    border: 2px solid rgba(255,255,255,0.1);
   }
 }
 
@@ -134,4 +160,19 @@
   flex: 1;
   overflow-y: auto;
   padding: var(--space-8);
+  
+  // Custom scrollbar for dark mode
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #0b0f19;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+  }
 }
