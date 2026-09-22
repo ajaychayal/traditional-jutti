@@ -70,7 +70,7 @@ export default function Checkout() {
       
       try {
         const token = await getToken();
-        await fetch('http://localhost:3001/api/orders', {
+        await fetch('https://server-olive-omega.vercel.app/api/orders', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export default function Checkout() {
       }
 
       // Create a new order on backend
-      const result = await fetch('http://localhost:3001/api/payment/order', {
+      const result = await fetch('https://server-olive-omega.vercel.app/api/payment/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: finalTotal, currency: 'INR' })
@@ -126,7 +126,7 @@ export default function Checkout() {
             razorpay_signature: response.razorpay_signature,
           };
 
-          const verifyRes = await fetch('http://localhost:3001/api/payment/verify', {
+          const verifyRes = await fetch('https://server-olive-omega.vercel.app/api/payment/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(verifyData)
@@ -146,7 +146,7 @@ export default function Checkout() {
             
             try {
               const token = await getToken();
-              await fetch('http://localhost:3001/api/orders', {
+              await fetch('https://server-olive-omega.vercel.app/api/orders', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

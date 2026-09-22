@@ -78,7 +78,7 @@ export default function Account() {
       try {
         const token = await getToken();
         if (!token) return;
-        const response = await fetch('http://localhost:3001/api/orders/myorders', {
+        const response = await fetch('https://server-olive-omega.vercel.app/api/orders/myorders', {
           headers: {
             Authorization: `Bearer ${token}`
           }

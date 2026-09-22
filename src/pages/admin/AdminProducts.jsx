@@ -10,12 +10,12 @@ export default function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { getToken } = useAuth();
-  
+
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
-    id: '', name: '', category: 'traditional', price: '', salePrice: '', 
+    id: '', name: '', category: 'traditional', price: '', salePrice: '',
     description: '', inStock: true, imageFile: null, imageUrl: ''
   });
 
@@ -24,7 +24,7 @@ export default function AdminProducts() {
     try {
       setLoading(true);
       const token = await getToken();
-      const res = await fetch('http://localhost:3001/api/products', {
+      const res = await fetch('https://server-olive-omega.vercel.app/api/products', {
         headers: {
           ...(token && { Authorization: `Bearer ${token}` })
         }
@@ -74,13 +74,13 @@ export default function AdminProducts() {
         const imageFormData = new FormData();
         imageFormData.append('image', formData.imageFile);
 
-        const imgRes = await fetch('http://localhost:3001/api/products/upload-image', {
+        const imgRes = await fetch('https://server-olive-omega.vercel.app/api/products/upload-image', {
           method: 'POST',
           headers: { Authorization: `Bearer ${token}` },
           body: imageFormData
         });
         const imgData = await imgRes.json();
-        
+
         if (!imgRes.ok) throw new Error(imgData.error || 'Failed to upload image');
         uploadedImageUrl = imgData.imageUrl;
       }
@@ -97,9 +97,9 @@ export default function AdminProducts() {
         images: [uploadedImageUrl]
       };
 
-      const res = await fetch('http://localhost:3001/api/products', {
+      const res = await fetch('https://server-olive-omega.vercel.app/api/products', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
@@ -125,10 +125,10 @@ export default function AdminProducts() {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this product?')) return;
-    
+
     try {
       const token = await getToken();
-      const res = await fetch(`http://localhost:3001/api/products/${id}`, {
+      const res = await fetch(`https://server-olive-omega.vercel.app/api/products/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -140,7 +140,7 @@ export default function AdminProducts() {
     }
   };
 
-  const filteredProducts = products.filter(p => 
+  const filteredProducts = products.filter(p =>
     p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     p.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -150,8 +150,8 @@ export default function AdminProducts() {
       <div className={styles.header}>
         <div className={styles.searchBar}>
           <Search size={20} className={styles.searchIcon} />
-          <input 
-            type="text" 
+          <input
+            type="text"
             placeholder="Search products by name or ID..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -225,7 +225,7 @@ export default function AdminProducts() {
               <h3>Add New Product</h3>
               <button className={styles.closeBtn} onClick={() => setIsModalOpen(false)}><X size={20} /></button>
             </div>
-            
+
             <form className={styles.modalForm} onSubmit={handleAddSubmit}>
               <div className={styles.formRow}>
                 <div className={styles.formGroup}>

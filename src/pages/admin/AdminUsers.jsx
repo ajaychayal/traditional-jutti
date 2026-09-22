@@ -78,7 +78,7 @@ export default function AdminUsers() {
         setLoading(true);
         const token = await getToken();
         
-        const res = await fetch('http://localhost:3001/api/admin/users', {
+        const res = await fetch('https://server-olive-omega.vercel.app/api/admin/users', {
           headers: {
             Authorization: `Bearer ${token}`
           }

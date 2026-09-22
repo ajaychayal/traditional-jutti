@@ -26,7 +26,7 @@ export default function Shop() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('http://localhost:3001/api/products');
+        const res = await fetch('https://server-olive-omega.vercel.app/api/products');
         const data = await res.json();
         setProducts(data);
       } catch (error) {
